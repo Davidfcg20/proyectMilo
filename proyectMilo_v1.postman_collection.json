@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "5e4e1a85-6ff8-47be-881d-354f9a8ce54c",
+		"name": "proyectMilo_v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21412923"
+	},
+	"item": [
+		{
+			"name": "getVeterinary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/veterinarys",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"veterinarys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pruebas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"David\",\r\n    \"userEmail\": \"davidf_cg@hotmail.com\",\r\n    \"userIdentification\": \"1000189091\",\r\n    \"userPassword\": \"375NegroDF\",\r\n    \"veterinaryTP\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/veterinarys/prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"veterinarys",
+						"prueba"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
