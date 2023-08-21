@@ -1,0 +1,31 @@
+services:
+  express-server:
+    image: node-docker
+    ports:
+      - "8080:8080"
+    volumes:
+      - type: bind
+        source: ./index.js
+        target: /app/index.js
+    command: npx nodemon -L index.js
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=proyect_milo
+      - POSTGRES_USER=Davidfcg20
+      - POSTGRES_PASSWORD=375NegroDF
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=davidfcg@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "5050:80"
+
+

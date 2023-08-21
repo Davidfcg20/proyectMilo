@@ -19,7 +19,7 @@ const corsOptions = {
 
 app.use(express.json());
 routerApi(app);
-app.use(cors(corsOptions));
+app.use(cors());
 
 //app.use(logErrors);
 app.use(boomErrorHandler);
