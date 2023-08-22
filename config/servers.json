@@ -1,0 +1,24 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "MILO Server",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "proyect_milo",
+      "Username": "Davidfcg20",
+      "PassFile": "/pgpass",
+      "SSLMode": "prefer"
+    },
+    "2": {
+      "Name": "MILO Server with localhost",
+      "Group": "Servers",
+      "Host": "localhost",
+      "Port": 5432,
+      "MaintenanceDB": "proyect_milo",
+      "Username": "Davidfcg20",
+      "PassFile": "/pgpass",
+      "SSLMode": "prefer"
+    }
+  }
+}

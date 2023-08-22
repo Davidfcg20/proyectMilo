@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt');
+//const getConnection = require('../libs/postgres');
+const pool = require('../libs/postgres.pool');
 
 class UserService {
 
@@ -8,16 +9,29 @@ class UserService {
     this.userEmail = userEmail;
     this.userIdentification = userIdentification;
     this.userPassword = userPassword;
+
+    this.pool = pool;
+    this.pool.on('error', (err) => {
+      throw new Error(`PEPE: ${err}`)
+    })
   }
 
   async create(userName, userEmail, userIdentification, userPassword){}
 
   async findAll(){
     try {
-      return ('HELLO FIND ALL')
+      const rta = await this.pool.query('SELECT * FROM veterinary')
+      return rta.rows;
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }
+    /*try {
+      const client = await getConnection();
+      const rta = await client.query('SELECT * FROM veterinary');
+      return rta.rows;
+    } catch (error) {
+      throw boom.notFound(`product not found: ${error}`)
+    }*/
   }
 
   async findOne(userIdentification){
