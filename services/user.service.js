@@ -12,8 +12,9 @@ class UserService {
 
     this.pool = pool;
     this.pool.on('error', (err) => {
-      throw new Error(`PEPE: ${err}`)
+      console.log(err);
     })
+
   }
 
   async create(userName, userEmail, userIdentification, userPassword){}
