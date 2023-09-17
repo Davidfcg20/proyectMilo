@@ -1,6 +1,7 @@
 const boom = require('@hapi/boom');
 //const getConnection = require('../libs/postgres');
 const pool = require('../libs/postgres.pool');
+const sequelize = require('../libs/sequelize');
 
 class UserService {
 
@@ -21,11 +22,17 @@ class UserService {
 
   async findAll(){
     try {
-      const rta = await this.pool.query('SELECT * FROM veterinary')
-      return rta.rows;
+      const [rta] = await sequelize.query('SELECT * FROM veterinary')
+      return rta
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }
+    // try {
+    //   const rta = await this.pool.query('SELECT * FROM veterinary')
+    //   return rta.rows;
+    // } catch (error) {
+    //   throw boom.notFound(`product not found: ${error}`)
+    // }
     /*try {
       const client = await getConnection();
       const rta = await client.query('SELECT * FROM veterinary');
