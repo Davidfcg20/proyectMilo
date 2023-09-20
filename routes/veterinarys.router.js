@@ -1,7 +1,7 @@
 const express = require('express');
 const VeterinaryService = require('./../services/veterinary.service');
 const validatoMiddleware = require('./../middlewares/validator.handler');
-const { createVeterinarySchema } = require('./../schemas/veterinary.schema');
+const { createVeterinarySchema, getVeterinarySchema, updateVeterinarySchema } = require('./../schemas/veterinary.schema');
 
 const encrypterMiddleware = require('./../middlewares/crypt.handler');
 
@@ -16,16 +16,54 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/prueba',
+router.post('/',
   validatoMiddleware(createVeterinarySchema, 'body'),
   encrypterMiddleware(),
   async (req, res, next) => {
     try {
-      res.json({"Pepe prueba" : req.body})
+      const data = req.body
+      res.send(await service.create(data))
     } catch (error) {
       next(error)
     }
   }
 );
+
+router.get('/:userIdentification',
+  validatoMiddleware(getVeterinarySchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { userIdentification } = req.params;
+      res.send(await service.findOne(userIdentification))
+    } catch (error) {
+      next(error)
+    }
+  }
+);
+
+router.patch('/:userIdentification',
+  validatoMiddleware(getVeterinarySchema, 'params'),
+  validatoMiddleware(updateVeterinarySchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { userIdentification } = req.params;
+      res.send(await service.update(userIdentification, req.body))
+    } catch (error) {
+      next(error)
+    }
+  }
+);
+
+router.delete('/:userIdentification',
+  validatoMiddleware(getVeterinarySchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { userIdentification } = req.params;
+      res.send(await service.delete(userIdentification))
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 
 module.exports = router;

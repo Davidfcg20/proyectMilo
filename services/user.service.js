@@ -1,7 +1,8 @@
 const boom = require('@hapi/boom');
 //const getConnection = require('../libs/postgres');
 const pool = require('../libs/postgres.pool');
-const sequelize = require('../libs/sequelize');
+//const sequelize = require('../libs/sequelize');
+const { models } = require('../libs/sequelize');
 
 class UserService {
 
@@ -18,15 +19,28 @@ class UserService {
 
   }
 
-  async create(userName, userEmail, userIdentification, userPassword){}
+  async create(data){
+    try {
+      const newUser = await models.Veterinary.create(data);
+      return newUser;
+    } catch (error) {
+      throw boom.notFound(`product not found: ${error}`)
+    }
+  }
 
   async findAll(){
     try {
-      const [rta] = await sequelize.query('SELECT * FROM veterinary')
+      const rta = await models.Veterinary.findAll();
       return rta
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }
+    // try {
+    //   const [rta] = await sequelize.query('SELECT * FROM veterinary')
+    //   return rta
+    // } catch (error) {
+    //   throw boom.notFound(`product not found: ${error}`)
+    // }
     // try {
     //   const rta = await this.pool.query('SELECT * FROM veterinary')
     //   return rta.rows;
@@ -44,15 +58,21 @@ class UserService {
 
   async findOne(userIdentification){
     try {
-      return ('HELLO FIND ONE')
+      const user = await models.Veterinary.findByPk(userIdentification);
+      if (!user) {
+        throw boom.notFound('user not found')
+      }
+      return user;
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }
   }
 
-  async update(userName, userEmail, userIdentification, userPassword){
+  async update(userIdentification, changes){
     try {
-      return ('HOLA UPDATE')
+      const user = await this.findOne(userIdentification);
+      const rta = await user.update(changes)
+      return rta
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }
@@ -60,7 +80,9 @@ class UserService {
 
   async delete(userIdentification){
     try {
-      return ('HOLA DELETE')
+      const user = await this.findOne(userIdentification);
+      await user.destroy()
+      return userIdentification
     } catch (error) {
       throw boom.notFound(`product not found: ${error}`)
     }

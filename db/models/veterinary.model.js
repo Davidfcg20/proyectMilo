@@ -6,7 +6,6 @@ const VeterinarySchema = {
   userName: {
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true,
     field: 'user_name'
   },
   userEmail: {
@@ -17,6 +16,7 @@ const VeterinarySchema = {
   userIdentification: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    primaryKey: true,
     field: 'user_identification'
   },
   userPassword: {
@@ -40,7 +40,7 @@ class Veterinaries extends Model {
     return {
       sequelize,
       tableName: VETERINARY_TABLE,
-      modelName: 'veterinary',
+      modelName: 'Veterinary',
       timestamps: false
     }
   }

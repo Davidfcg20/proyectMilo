@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { createUserSchema } = require('./user.schema');
+const { createUserSchema, getUserSchema, updateUserSchema } = require('./user.schema');
 
 const veterinaryTP = Joi.number().integer();
 
@@ -7,4 +7,8 @@ const createVeterinarySchema = createUserSchema.append({
   veterinaryTP: veterinaryTP.required()
 })
 
-module.exports = { createVeterinarySchema }
+const getVeterinarySchema = getUserSchema;
+
+const updateVeterinarySchema = updateUserSchema;
+
+module.exports = { createVeterinarySchema, getVeterinarySchema, updateVeterinarySchema }
