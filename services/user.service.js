@@ -24,7 +24,7 @@ class UserService {
       const newUser = await models.Veterinary.create(data);
       return newUser;
     } catch (error) {
-      throw boom.notFound(`product not found: ${error}`)
+      throw boom.notFound(`error creating: ${error}`)
     }
   }
 
@@ -33,7 +33,7 @@ class UserService {
       const rta = await models.Veterinary.findAll();
       return rta
     } catch (error) {
-      throw boom.notFound(`product not found: ${error}`)
+      throw boom.notFound(`error finding all: ${error}`)
     }
     // try {
     //   const [rta] = await sequelize.query('SELECT * FROM veterinary')
@@ -64,7 +64,7 @@ class UserService {
       }
       return user;
     } catch (error) {
-      throw boom.notFound(`product not found: ${error}`)
+      throw boom.notFound(`error finding: ${error}`)
     }
   }
 
@@ -74,7 +74,7 @@ class UserService {
       const rta = await user.update(changes)
       return rta
     } catch (error) {
-      throw boom.notFound(`product not found: ${error}`)
+      throw boom.notFound(`error updating: ${error}`)
     }
   }
 
@@ -84,7 +84,7 @@ class UserService {
       await user.destroy()
       return userIdentification
     } catch (error) {
-      throw boom.notFound(`product not found: ${error}`)
+      throw boom.notFound(`error deleting: ${error}`)
     }
   }
 

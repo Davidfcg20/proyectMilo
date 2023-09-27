@@ -9,6 +9,8 @@ function errorHandler(err, req, res, next) {
 }
 */
 
+const { ValidationError } = require("sequelize");
+
 function boomErrorHandler(err, req, res, next){
   if(err.isBoom) {
     console.error(err.stack);
@@ -19,5 +21,16 @@ function boomErrorHandler(err, req, res, next){
   }
 }
 
+function ormErrorHandler(err, req, res, next){
+  if(err instanceof ValidationError){
+    res.status(409).json({
+      statusCode: 409,
+      message: err.name,
+      errors: err.errors,
+    });
+  } else {
+    next(err);
+  }
+}
 
-module.exports = {/*logErrors, errorHandler,*/ boomErrorHandler};
+module.exports = {/*logErrors, errorHandler,*/ boomErrorHandler, ormErrorHandler};
