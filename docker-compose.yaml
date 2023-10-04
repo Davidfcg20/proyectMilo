@@ -2,7 +2,7 @@ services:
   express-server:
     image: node-docker
     ports:
-      - "8080:8080"
+      - "3000:3000"
     volumes:
       - type: bind
         source: ./index.js
@@ -31,11 +31,32 @@ services:
       - ./config/servers.json:/pgadmin4/servers.json
       - pgadmin-data:/var/lib/pgadmin
 
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=proyect_milo
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=375NegroDF
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+
+    ports:
+      - "8080:80"
+
 volumes:
   postgres_data:
     name: 'postgres_data'
   pgadmin-data:
     name: 'pgadmin-data'
+  mysql_data:
+    name: 'mysql_data'
 
 
 
