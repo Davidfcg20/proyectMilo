@@ -29,6 +29,13 @@ const VeterinarySchema = {
     allowNull: false,
     field: 'veterinary_tp'
   },
+  userGender: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'indefined',
+    field: 'user_gender'
+  }
+
 };
 
 class Veterinaries extends Model {
